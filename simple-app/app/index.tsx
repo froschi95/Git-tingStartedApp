@@ -1,20 +1,23 @@
-import { SafeAreaView, ScrollView, StyleSheet, Linking, useColorScheme } from 'react-native';
+import { SafeAreaView, ScrollView, StyleSheet, Linking, useColorScheme, View, Image } from 'react-native';
 import { ThemedView, ThemedText } from './components/Themed';
 import { Colors } from './hooks/useThemeColor';
 
 interface Resource {
   title: string;
   url: string;
+  icon: number;
 }
 
 const resources: Resource[] = [
   {
     title: 'GitHub Repository',
     url: 'https://github.com/froschi95/Git-tingStartedApp',
+    icon: require('../assets/images/github-icon.png'),
   },
   {
     title: 'React Native Developers',
     url: 'https://hng.tech/hire/react-native-developers',
+    icon: require('../assets/images/hng-tech-logo.png'),
   },
 ];
 
@@ -51,7 +54,8 @@ const Index: React.FC = () => {
           >
             Hire the best Mobile developers
           </ThemedText>
-
+          <ThemedView
+            style={styles.innerContainer}>
           {resources.map((resource, index) => (
             <ThemedView
               key={index}
@@ -59,6 +63,10 @@ const Index: React.FC = () => {
               lightColor={Colors.light.buttonBackground}
               darkColor={Colors.dark.buttonBackground}
             >
+              <Image 
+                source={resource.icon}
+                style={styles.iconContainer}
+              />
               <ThemedText
                 style={styles.buttonText}
                 lightColor={Colors.light.buttonText}
@@ -69,6 +77,7 @@ const Index: React.FC = () => {
               </ThemedText>
             </ThemedView>
           ))}
+          </ThemedView>
         </ScrollView>
       </ThemedView>
     </SafeAreaView>
@@ -78,6 +87,9 @@ const Index: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  innerContainer: {
+    alignItems: 'center',
   },
   scrollContent: {
     padding: 20,
@@ -94,21 +106,30 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   button: {
-    padding: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 20,
     borderRadius: 12,
     marginBottom: 16,
-    alignItems: 'center',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
+    // marginLeft: 20,
+    gap: 20,
+    boxShadow: '0px 2px 3.84px rgba(0, 0, 0, 0.25)',
     elevation: 5,
+    width: '86%',
   },
   buttonText: {
     fontSize: 16,
     fontWeight: '600',
+    flex: 1,
+    textAlign: 'left',
+  },
+  iconContainer: {
+    height: 40,
+    width: 40,
+    // marginRight: 12,
+    resizeMode: 'contain',
   },
 });
 
